@@ -181,7 +181,8 @@ def main():
         sys.exit("data/ai/summaries.json exists: this run is done once. Delete it deliberately to run again.")
 
     import anthropic
-    client = anthropic.Anthropic(api_key=key)
+    # gzip only: the local Brotli 1.0.9 cannot decode the SDK's brotli responses (TypeError in httpx2).
+    client = anthropic.Anthropic(api_key=key, default_headers={"Accept-Encoding": "gzip, deflate"})
     del key
     spent, calls, tok_in, tok_out = 0.0, 0, 0, 0
     summaries, stopped = [], None
