@@ -1,0 +1,76 @@
+# Every threshold, weight and risk tier in this file is an OWN ASSUMPTION for a fictional company.
+# None is taken from a law, regulator, FATF list or any real employer. See docs/assumptions.md.
+
+company: "Lysbro Pay ApS (fictional)"
+
+period:
+  history_start: "2026-01-01"   # Jan-Mar 2026: history used only as a baseline for the rules
+  start: "2026-04-01"           # alerts and the dashboard cover Apr-Sep 2026
+  end: "2026-09-30"
+
+# Invented countries. "domestic" is the home market (Denmark) and gets no risk tier.
+countries:
+  Denmark: domestic
+  Elsmark: low
+  Tarvenn: low
+  Lunora: low
+  Norsala: medium
+  Bresken: medium
+  Veltria: high
+  Quorvia: high
+
+rules:
+  R1:
+    name: Structuring
+    reason: "Several transfers just under {threshold} within {window_days} days"
+    threshold_eur: 10000        # a reporting-style threshold (own assumption)
+    band_low_pct: 85            # "just under" = from 85 % of the threshold up to (not including) it
+    min_count: 3
+    window_days: 7
+    weight: 30
+  R2:
+    name: Pass-through
+    reason: "Money in from several senders and most of it out again within {window_hours} hours"
+    window_hours: 48
+    min_senders: 3
+    min_inflow_eur: 3000
+    min_out_share_pct: 80
+    weight: 35
+  R3:
+    name: Fan-in
+    reason: "Many different senders paying into one account within {window_days} days"
+    window_days: 30
+    min_senders_private: 8
+    min_senders_business: 25
+    weight: 25
+  R4:
+    name: Volume spike
+    reason: "30-day volume far above both the declared expected volume and the customer's own recent activity"
+    window_days: 30
+    baseline_days: 90
+    multiple: 4                 # 30-day volume >= 4 x max(declared monthly volume, average monthly volume in the 90 days before)
+    min_volume_eur: 5000
+    weight: 20
+  R5:
+    name: High-risk corridor
+    reason: "Transfers to a high-risk-tier country within {window_days} days"
+    window_days: 30
+    min_total_eur: 5000
+    min_count: 3                # either condition is enough
+    weight: 30
+  R6:
+    name: Purpose mismatch
+    reason: "Declared purpose is savings or family support, but the account has as many counterparties as a business"
+    window_days: 30
+    purposes: [savings, family_support]
+    min_counterparties: 12
+    weight: 20
+
+alerts:
+  cooldown_days: 30             # a rule alerts again on the same customer only after 30 quiet days
+  case_grouping_days: 14        # alerts on one customer within 14 days of each other form one case
+
+risk_score:                     # score = min(100, rule points + KYC points + amount points)
+  kyc_points: {low: 0, medium: 10, high: 20}
+  amount_points_max: 20
+  amount_ratio_full: 5          # full amount points when the amount involved is 5 x expected monthly volume

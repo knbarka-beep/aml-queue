@@ -1,0 +1,23 @@
+{
+  "all_customers_pct": {
+    "group_a": 45.6,
+    "group_b": 21.6,
+    "group_c": 19.1,
+    "group_d": 13.7
+  },
+  "planted_pct": {
+    "group_a": 46.7,
+    "group_b": 20.0,
+    "group_c": 20.0,
+    "group_d": 13.3
+  },
+  "difference_pp": {
+    "group_a": 1.1,
+    "group_b": -1.6,
+    "group_c": 0.9,
+    "group_d": -0.4
+  },
+  "tolerance_pp": 5.0,
+  "passed": true,
+  "method": "planted customers drawn by stratified sampling over name-origin group; rules and AI never see the group"
+}

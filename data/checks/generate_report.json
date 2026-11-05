@@ -1,0 +1,8 @@
+{
+  "customers": 2000,
+  "transactions": 74228,
+  "transactions_apr_sep": 50646,
+  "transactions_jan_mar_history": 23582,
+  "planted_customers": 30,
+  "outgoing_transfers_cut_to_balance": 1401
+}
