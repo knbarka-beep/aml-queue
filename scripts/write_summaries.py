@@ -25,7 +25,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Literal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ValidationError
 
 sys.path.insert(0, str(Path(__file__).parent))
 from check_summaries import check_draft  # noqa: E402
@@ -51,6 +51,14 @@ class CaseDraft(BaseModel):
     suggestion: Literal["escalate", "close as false positive"]
     reasons: list[str]
     missing: list[str]
+
+
+# The same structure as a JSON schema for the API (structured outputs need additionalProperties: false).
+SCHEMA = {"type": "object", "additionalProperties": False, "required": ["summary", "suggestion", "reasons", "missing"],
+          "properties": {"summary": {"type": "string"},
+                         "suggestion": {"type": "string", "enum": ["escalate", "close as false positive"]},
+                         "reasons": {"type": "array", "items": {"type": "string"}},
+                         "missing": {"type": "array", "items": {"type": "string"}}}}
 
 
 def money(x):
@@ -185,7 +193,7 @@ def main():
     client = anthropic.Anthropic(api_key=key, default_headers={"Accept-Encoding": "gzip, deflate"})
     del key
     spent, calls, tok_in, tok_out = 0.0, 0, 0, 0
-    summaries, stopped = [], None
+    summaries, stopped, no_draft = [], None, []  # no_draft: cases whose last attempt returned no usable JSON
     worst_call = max(worst_case_cost([i], system) for i in inputs) / (MAX_RETRIES + 1) * 2  # generous single-call bound
     with (AI / "summary_attempts.csv").open("w", encoding="utf-8", newline="") as fa:
         writer = csv.DictWriter(fa, fieldnames=ATTEMPT_COLS)
@@ -198,8 +206,11 @@ def main():
                     stopped = f"stopped before {inp['case_id']}: spend USD {spent:.4f} plus one more call could pass the cap"
                     break
                 try:
-                    resp = client.messages.parse(model=MODEL, max_tokens=MAX_TOKENS, system=system, messages=messages,
-                                                 output_format=CaseDraft, output_config={"effort": "low"})
+                    # messages.create, not messages.parse: a reply cut off at max_tokens must become a logged,
+                    # failed attempt (with its token usage), not an exception that stops the run.
+                    resp = client.messages.create(model=MODEL, max_tokens=MAX_TOKENS, system=system, messages=messages,
+                                                  output_config={"effort": "low",
+                                                                 "format": {"type": "json_schema", "schema": SCHEMA}})
                 except (anthropic.APIConnectionError, anthropic.RateLimitError, anthropic.InternalServerError) as e:
                     stopped = f"stopped at {inp['case_id']}: {type(e).__name__}"
                     break
@@ -208,14 +219,13 @@ def main():
                 spent += cost
                 tok_in += resp.usage.input_tokens
                 tok_out += resp.usage.output_tokens
-                parsed = resp.parsed_output
-                if parsed is None:
-                    out, failed = {}, [f"no valid JSON returned (stop_reason {resp.stop_reason})"]
-                    text = "".join(b.text for b in resp.content if b.type == "text")
-                else:
-                    out = parsed.model_dump()
+                text = "".join(b.text for b in resp.content if b.type == "text")
+                try:
+                    out = CaseDraft.model_validate_json(text).model_dump()
                     failed = check_draft(out, inp)
                     text = json.dumps(out, ensure_ascii=False)
+                except ValidationError:
+                    out, failed = {}, [f"no complete JSON returned (stop_reason {resp.stop_reason}); keep the reply shorter"]
                 writer.writerow({"case_id": inp["case_id"], "attempt": attempt,
                                  "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "model": MODEL,
                                  "prompt_version": PROMPT_VERSION, "input_tokens": resp.usage.input_tokens,
@@ -233,13 +243,15 @@ def main():
                 summaries.append({"case_id": inp["case_id"], "model": MODEL, "prompt_version": PROMPT_VERSION,
                                   "attempts": attempt, "first_attempt_passed": first_passed,
                                   "output": out, "check": {"passed": not failed, "failed": failed}})
+            else:
+                no_draft.append(inp["case_id"])
             print(f"[{n}/{len(inputs)}] {inp['case_id']} attempts {attempt} {'PASS' if not failed else 'FAIL'} "
                   f"spend USD {spent:.4f}", flush=True)
             if stopped:
                 break
 
     (AI / "summaries.json").write_text(json.dumps(summaries, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
-    log |= {"status": stopped or "complete", "drafts": len(summaries), "api_calls": calls, "input_tokens": tok_in,
+    log |= {"status": stopped or "complete", "drafts": len(summaries), "cases_without_usable_draft": no_draft, "api_calls": calls, "input_tokens": tok_in,
             "output_tokens": tok_out, "spend_usd": round(spent, 4),
             "first_attempt_passed": sum(bool(s["first_attempt_passed"]) for s in summaries),
             "final_passed": sum(s["check"]["passed"] for s in summaries),
