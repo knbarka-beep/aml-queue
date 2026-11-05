@@ -200,7 +200,9 @@ async function main() {
   await go("/how-it-works/");
   check("How this works fits 375 px", (await js(`document.documentElement.scrollWidth`)) <= 375);
 
-  check("No console errors", errors.length === 0, errors.slice(0, 3).join(" | "));
+  // The 404 check opens a missing page on purpose; the browser logs that expected 404 as an error.
+  const real = errors.filter((e) => !e.includes("/no-such-page/"));
+  check("No console errors", real.length === 0, real.slice(0, 3).join(" | "));
 }
 
 main().catch((e) => { check("QA script ran", false, e.message); }).finally(() => {
