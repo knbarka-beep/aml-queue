@@ -1,0 +1,3 @@
+finished_at,project,model,api_calls,input_tokens,output_tokens,spend_usd
+"2026-11-05T17:33:30+00:00 (crashed partial run, 11 cases)",aml-queue,claude-haiku-5-5,15,39267,8103,"0.0080 (+ one unlogged call cut off at 2.000 output tokens, at most about 0,0013)"
+2026-11-05T17:49:21+00:00,aml-queue,claude-haiku-5-5,243,710689,154156,0.1481

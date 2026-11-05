@@ -41,3 +41,27 @@ The metrics in `docs/metrics.md` are fixed as of this commit: true-positive defi
 - **Cost cap USD 2,00.** Worst-case estimate before calling: 3 attempts per case, every attempt using all 2.000 output tokens, input estimated at 3 characters per token: USD 0,78 for 183 cases. During the run, the script stops before any call that could take spend past the cap. Price: USD 0,10 / 0,50 per million input / output tokens.
 - **Run once.** The script refuses to run if `data/ai/summaries.json` already exists.
 - **Prompt inputs are written to `data/ai/prompts/inputs.jsonl` on every run**, so anyone can see exactly what the model saw.
+
+## Stage 3: what happened in the run
+
+- **First launch: 0 API calls.** The local Brotli 1.0.9 package cannot decode the SDK's compressed responses (TypeError inside httpx2). Fix: the client asks for gzip only (`Accept-Encoding: gzip, deflate`). No environment change. Committed before relaunching.
+- **Second launch crashed after 11 cases.** One reply was cut off at the 2.000-token limit and `messages.parse` raised a validation error the script did not catch. This was a bug in the script, not in the prompt or rules. Fix: use `messages.create` with a JSON schema and treat a cut-off reply as a failed, logged attempt that gets the normal retry. The 15 attempts of the crashed run are kept in `data/ai/crashed_run_attempts.csv` and its spend (USD 0,0080, plus one unlogged cut-off call of at most about USD 0,0013) is in `data/ai/spend_log.csv`. Nobody looked at or scored those 11 drafts.
+- **Complete run, once:** 183 drafts, 243 API calls, USD 0,1481. Prompt, checks, retry rule and cap unchanged from the committed versions. Total spend for the project: about USD 0,16, against a cap of USD 2,00.
+- **Number check:** 134 of 183 drafts passed every check on the first attempt (73,2 %), 178 of 183 after retries (97,3 %). The 5 that still fail are only over the word limit (101-103 words). They are kept, as the retry rule says, and the dashboard marks them as failing. First-attempt failures: summary length 27, reason longer than 25 words 22, a number not in the input 13, four reasons instead of three 5, reply cut off 2.
+
+## Stage 4: results (reported as they came out; nothing changed afterwards)
+
+- **Rules:** 183 cases, 34 truly suspicious: precision 18,6 %. Recall 27 of 30 planted customers (90,0 %): all 24 full versions, 3 of 6 weak versions. Missed by primary pattern: one pass-through, two high-risk corridor. No case fell on a planted customer before the pattern started.
+- **Per rule** (cases / truly suspicious / precision / planted customers with the pattern caught by that rule): R1 15 / 7 / 46,7 % / 6 of 7; R2 18 / 5 / 27,8 % / 4 of 5; R3 15 / 15 / 100 % / 5 of 5; R4 97 / 27 / 27,8 % / 5 of 5; R5 64 / 6 / 9,4 % / 5 of 7; R6 11 / 11 / 100 % / 6 of 6.
+- **AI suggestion vs truth:** of 34 truly suspicious cases, 30 suggested for escalation (88,2 %), 4 suggested for closing (the costly error). Of 149 false positives, 79 suggested for closing (53,0 %), 70 for escalation.
+- **Fairness (aggregate):** share of cases per name-origin group is within 3 points of the group's share of customers; AI escalation rate per group 48,5-58,8 %. With 25-90 cases per group these differences are within what chance produces; reported, not tested statistically.
+- R3 and R6 at 100 % precision is a feature of synthetic data: normal customers in the generator rarely have many senders or counterparties. Real data would not be this clean.
+
+## Stage 5: dashboard
+
+- **Same stack and versions as project 2** (Next.js 16.4.4, React 19.3, Recharts 3), installed from its lockfile. Static export with `trailingSlash: true`.
+- **The queue shows cases raised in the selected month** (26 in Sep 2026); a checkbox adds earlier open cases. The "Open cases" KPI is the backlog at month end, which equals all cases so far because no analyst decisions exist; the KPI explanation says so.
+- **High risk = score 60 or more** (own assumption), the only place besides "Escalate" that uses red.
+- **Plain `<a>` link to "How this works".** Next's static export writes the page's prefetch file under a different name than the client asks for, which caused a 404 in the console. A plain link does a normal page load. The back link to the queue uses `Link`, whose files exist.
+- **Drill-down timeline** covers 90 days before the first alert up to the case date, so the drill-down never shows data after the case date either.
+- **QA in headless Edge** (`tests/qa_edge.mjs`, Node and the DevTools protocol, no new dependency): 26 of 26 checks pass: fictional labels, four KPIs, queue sorted by risk, filter, Tab reaches every control with a visible focus ring, Enter opens a case, the "AI suggestion only. An analyst decides." line, timeline renders, Esc closes, dark mode, rule performance tab with the 2x2 table, How this works page, no horizontal scroll at 375 px (page and drill-down), no console errors. First-run failures were a test bug (Enter without a key text), a grid overflow at 375 px, a missing favicon and the prefetch 404; all fixed.

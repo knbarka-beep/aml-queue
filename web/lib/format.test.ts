@@ -8,6 +8,7 @@ test("European number and date formats", () => {
   assert.equal(eurShort(1234), "€1,2k");
   assert.equal(eurShort(2345678), "€2,3m");
   assert.equal(eurShort(950), "€950");
+  assert.equal(eurShort(-3000), "−€3,0k");
   assert.equal(pct(92.34), "92,3 %");
   assert.equal(pct(null), "n/a");
   assert.equal(dateDk("2026-12-31 14:05"), "31.12.2026");

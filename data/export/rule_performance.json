@@ -1,8 +1,8 @@
 [
-{"rule_id": "R1", "name": "Structuring", "weight": 30, "alerts": 15, "cases": 15, "true_positive_cases": null, "precision_pct": null, "planted_customers_with_pattern": null, "caught_customers_with_pattern": null, "recall_pct": null},
-{"rule_id": "R2", "name": "Pass-through", "weight": 35, "alerts": 18, "cases": 18, "true_positive_cases": null, "precision_pct": null, "planted_customers_with_pattern": null, "caught_customers_with_pattern": null, "recall_pct": null},
-{"rule_id": "R3", "name": "Fan-in", "weight": 25, "alerts": 15, "cases": 15, "true_positive_cases": null, "precision_pct": null, "planted_customers_with_pattern": null, "caught_customers_with_pattern": null, "recall_pct": null},
-{"rule_id": "R4", "name": "Volume spike", "weight": 20, "alerts": 97, "cases": 97, "true_positive_cases": null, "precision_pct": null, "planted_customers_with_pattern": null, "caught_customers_with_pattern": null, "recall_pct": null},
-{"rule_id": "R5", "name": "High-risk corridor", "weight": 30, "alerts": 64, "cases": 64, "true_positive_cases": null, "precision_pct": null, "planted_customers_with_pattern": null, "caught_customers_with_pattern": null, "recall_pct": null},
-{"rule_id": "R6", "name": "Purpose mismatch", "weight": 20, "alerts": 11, "cases": 11, "true_positive_cases": null, "precision_pct": null, "planted_customers_with_pattern": null, "caught_customers_with_pattern": null, "recall_pct": null}
+{"rule_id": "R1", "name": "Structuring", "weight": 30, "alerts": 15, "cases": 15, "true_positive_cases": 7, "precision_pct": 46.7, "planted_customers_with_pattern": 7, "caught_customers_with_pattern": 6, "recall_pct": 85.7},
+{"rule_id": "R2", "name": "Pass-through", "weight": 35, "alerts": 18, "cases": 18, "true_positive_cases": 5, "precision_pct": 27.8, "planted_customers_with_pattern": 5, "caught_customers_with_pattern": 4, "recall_pct": 80.0},
+{"rule_id": "R3", "name": "Fan-in", "weight": 25, "alerts": 15, "cases": 15, "true_positive_cases": 15, "precision_pct": 100.0, "planted_customers_with_pattern": 5, "caught_customers_with_pattern": 5, "recall_pct": 100.0},
+{"rule_id": "R4", "name": "Volume spike", "weight": 20, "alerts": 97, "cases": 97, "true_positive_cases": 27, "precision_pct": 27.8, "planted_customers_with_pattern": 5, "caught_customers_with_pattern": 5, "recall_pct": 100.0},
+{"rule_id": "R5", "name": "High-risk corridor", "weight": 30, "alerts": 64, "cases": 64, "true_positive_cases": 6, "precision_pct": 9.4, "planted_customers_with_pattern": 7, "caught_customers_with_pattern": 5, "recall_pct": 71.4},
+{"rule_id": "R6", "name": "Purpose mismatch", "weight": 20, "alerts": 11, "cases": 11, "true_positive_cases": 11, "precision_pct": 100.0, "planted_customers_with_pattern": 6, "caught_customers_with_pattern": 6, "recall_pct": 100.0}
 ]

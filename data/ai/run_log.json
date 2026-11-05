@@ -1,0 +1,18 @@
+{
+  "model": "claude-haiku-5-5",
+  "prompt_version": "v1",
+  "cases": 183,
+  "cap_usd": 2.0,
+  "worst_case_estimate_usd": 0.7788,
+  "started_at": "2026-11-05T17:34:58+00:00",
+  "status": "complete",
+  "drafts": 183,
+  "cases_without_usable_draft": [],
+  "api_calls": 243,
+  "input_tokens": 710689,
+  "output_tokens": 154156,
+  "spend_usd": 0.1481,
+  "first_attempt_passed": 134,
+  "final_passed": 178,
+  "finished_at": "2026-11-05T17:49:21+00:00"
+}

@@ -53,7 +53,7 @@ a { color: var(--accent); }
 .small { font-size: 0.8rem; }
 .num { text-align: right; white-space: nowrap; }
 .nowrap { white-space: nowrap; }
-.stack { display: grid; gap: 8px; }
+.stack { display: grid; gap: 8px; align-content: start; }
 
 .page { max-width: 1280px; margin: 0 auto; padding: 16px; display: grid; gap: 16px; }
 .page > * { min-width: 0; } /* grid children may shrink, so wide tables scroll inside their card */
@@ -128,7 +128,7 @@ dialog.drill::backdrop { background: rgb(15 23 42 / 0.5); }
 .legend .trig::before { background: var(--accent); }
 
 /* Rule performance */
-.grid2 { display: grid; gap: 16px; }
+.grid2 { display: grid; gap: 16px; align-items: start; }
 @media (min-width: 1024px) { .grid2 { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); } }
 .t22 td, .t22 th { text-align: center; }
 .t22 th:first-child, .t22 td:first-child { text-align: left; }

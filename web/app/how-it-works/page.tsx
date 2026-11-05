@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import { meta } from "@/lib/data";
 import { num, pct } from "@/lib/format";
@@ -20,7 +21,7 @@ export default function HowItWorks() {
   const tiers = (t: string) => Object.entries(meta.countries).filter(([, v]) => v === t).map(([k]) => k).join(", ");
   return (
     <main className="page">
-      <p><a href="/">← Back to the alert queue</a></p>
+      <p><Link href="/">← Back to the alert queue</Link></p>
       <article className="card prose">
         <h1>How this works</h1>
         <p className="notice">{meta.notice} Nothing here comes from a real company, customer or employer.</p>

@@ -27,7 +27,8 @@ def test_static_no_truth_reference():
 
 def test_static_no_name_origin_reference():
     bad = [p.name for p in SOURCES if p.name not in ALLOWED_ORIGIN
-           and ("name_origin" in p.read_text(encoding="utf-8") or "data/fairness" in p.read_text(encoding="utf-8"))]
+           and re.search(r"(?<!by_)name_origin|data/fairness", p.read_text(encoding="utf-8"))]
+    # "fairness_by_name_origin_group" (the aggregate in data/eval/scores.json) is allowed: no customer-level group.
     assert not bad, f"these files refer to name origin: {bad}"
 
 

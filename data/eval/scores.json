@@ -1,0 +1,150 @@
+{
+  "definition": "True positive = case on a planted customer dated on or after the pattern started. See docs/metrics.md.",
+  "overall": {
+    "cases": 183,
+    "true_positive_cases": 34,
+    "false_positive_cases": 149,
+    "precision_pct": 18.6,
+    "planted_customers": 30,
+    "planted_customers_caught": 27,
+    "recall_pct": 90.0,
+    "cases_on_planted_customers_before_pattern_start": 0
+  },
+  "rules": [
+    {
+      "rule_id": "R1",
+      "cases": 15,
+      "true_positive_cases": 7,
+      "precision_pct": 46.7,
+      "planted_customers_with_pattern": 7,
+      "caught_customers_with_pattern": 6,
+      "recall_pct": 85.7
+    },
+    {
+      "rule_id": "R2",
+      "cases": 18,
+      "true_positive_cases": 5,
+      "precision_pct": 27.8,
+      "planted_customers_with_pattern": 5,
+      "caught_customers_with_pattern": 4,
+      "recall_pct": 80.0
+    },
+    {
+      "rule_id": "R3",
+      "cases": 15,
+      "true_positive_cases": 15,
+      "precision_pct": 100.0,
+      "planted_customers_with_pattern": 5,
+      "caught_customers_with_pattern": 5,
+      "recall_pct": 100.0
+    },
+    {
+      "rule_id": "R4",
+      "cases": 97,
+      "true_positive_cases": 27,
+      "precision_pct": 27.8,
+      "planted_customers_with_pattern": 5,
+      "caught_customers_with_pattern": 5,
+      "recall_pct": 100.0
+    },
+    {
+      "rule_id": "R5",
+      "cases": 64,
+      "true_positive_cases": 6,
+      "precision_pct": 9.4,
+      "planted_customers_with_pattern": 7,
+      "caught_customers_with_pattern": 5,
+      "recall_pct": 71.4
+    },
+    {
+      "rule_id": "R6",
+      "cases": 11,
+      "true_positive_cases": 11,
+      "precision_pct": 100.0,
+      "planted_customers_with_pattern": 6,
+      "caught_customers_with_pattern": 6,
+      "recall_pct": 100.0
+    }
+  ],
+  "recall_by_primary_pattern": {
+    "structuring": {
+      "planted": 5,
+      "caught": 5
+    },
+    "pass_through": {
+      "planted": 5,
+      "caught": 4
+    },
+    "fan_in": {
+      "planted": 5,
+      "caught": 5
+    },
+    "dormant_spike": {
+      "planted": 5,
+      "caught": 5
+    },
+    "high_risk_corridor": {
+      "planted": 5,
+      "caught": 3
+    },
+    "purpose_mismatch": {
+      "planted": 5,
+      "caught": 5
+    }
+  },
+  "recall_by_strength": {
+    "full": {
+      "planted": 24,
+      "caught": 24
+    },
+    "weak": {
+      "planted": 6,
+      "caught": 3
+    }
+  },
+  "ai": {
+    "drafts": 183,
+    "cases_without_draft": 0,
+    "table": {
+      "suspicious_escalate": 30,
+      "suspicious_close": 4,
+      "not_suspicious_escalate": 70,
+      "not_suspicious_close": 79
+    },
+    "escalation_rate_on_suspicious_pct": 88.2,
+    "close_rate_on_false_positives_pct": 53.0,
+    "number_check_first_attempt_passed": 134,
+    "number_check_final_passed": 178,
+    "average_attempts": 1.33
+  },
+  "fairness_by_name_origin_group": {
+    "group_a": {
+      "customers": 913,
+      "share_of_customers_pct": 45.6,
+      "customers_with_case_pct": 8.3,
+      "share_of_cases_pct": 48.6,
+      "ai_escalation_rate_pct": 55.1
+    },
+    "group_b": {
+      "customers": 432,
+      "share_of_customers_pct": 21.6,
+      "customers_with_case_pct": 6.9,
+      "share_of_cases_pct": 18.6,
+      "ai_escalation_rate_pct": 58.8
+    },
+    "group_c": {
+      "customers": 381,
+      "share_of_customers_pct": 19.1,
+      "customers_with_case_pct": 6.6,
+      "share_of_cases_pct": 18.0,
+      "ai_escalation_rate_pct": 48.5
+    },
+    "group_d": {
+      "customers": 274,
+      "share_of_customers_pct": 13.7,
+      "customers_with_case_pct": 8.0,
+      "share_of_cases_pct": 14.8,
+      "ai_escalation_rate_pct": 55.6
+    }
+  }
+}

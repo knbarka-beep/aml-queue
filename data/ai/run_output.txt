@@ -1,0 +1,202 @@
+183 cases. Worst-case estimate (3 attempts each, every output 2000 tokens): USD 0.78; cap USD 2.00.
+[1/183] CASE-0001 attempts 1 PASS spend USD 0.0005
+[2/183] CASE-0002 attempts 1 PASS spend USD 0.0010
+[3/183] CASE-0003 attempts 1 PASS spend USD 0.0014
+[4/183] CASE-0004 attempts 1 PASS spend USD 0.0019
+[5/183] CASE-0005 attempts 1 PASS spend USD 0.0024
+[6/183] CASE-0006 attempts 1 PASS spend USD 0.0029
+[7/183] CASE-0007 attempts 1 PASS spend USD 0.0033
+[8/183] CASE-0008 attempts 1 PASS spend USD 0.0038
+[9/183] CASE-0009 attempts 1 PASS spend USD 0.0042
+[10/183] CASE-0010 attempts 1 PASS spend USD 0.0047
+[11/183] CASE-0011 attempts 1 PASS spend USD 0.0051
+[12/183] CASE-0012 attempts 2 PASS spend USD 0.0061
+[13/183] CASE-0013 attempts 2 PASS spend USD 0.0073
+[14/183] CASE-0014 attempts 1 PASS spend USD 0.0077
+[15/183] CASE-0015 attempts 1 PASS spend USD 0.0082
+[16/183] CASE-0016 attempts 3 PASS spend USD 0.0103
+[17/183] CASE-0017 attempts 1 PASS spend USD 0.0109
+[18/183] CASE-0018 attempts 1 PASS spend USD 0.0113
+[19/183] CASE-0019 attempts 3 FAIL spend USD 0.0129
+[20/183] CASE-0020 attempts 1 PASS spend USD 0.0134
+[21/183] CASE-0021 attempts 1 PASS spend USD 0.0141
+[22/183] CASE-0022 attempts 1 PASS spend USD 0.0146
+[23/183] CASE-0023 attempts 3 FAIL spend USD 0.0170
+[24/183] CASE-0024 attempts 1 PASS spend USD 0.0174
+[25/183] CASE-0025 attempts 1 PASS spend USD 0.0179
+[26/183] CASE-0026 attempts 1 PASS spend USD 0.0184
+[27/183] CASE-0027 attempts 1 PASS spend USD 0.0188
+[28/183] CASE-0028 attempts 1 PASS spend USD 0.0194
+[29/183] CASE-0029 attempts 1 PASS spend USD 0.0198
+[30/183] CASE-0030 attempts 1 PASS spend USD 0.0203
+[31/183] CASE-0031 attempts 1 PASS spend USD 0.0207
+[32/183] CASE-0032 attempts 1 PASS spend USD 0.0213
+[33/183] CASE-0033 attempts 1 PASS spend USD 0.0218
+[34/183] CASE-0034 attempts 1 PASS spend USD 0.0222
+[35/183] CASE-0035 attempts 1 PASS spend USD 0.0227
+[36/183] CASE-0036 attempts 2 PASS spend USD 0.0238
+[37/183] CASE-0037 attempts 1 PASS spend USD 0.0242
+[38/183] CASE-0038 attempts 1 PASS spend USD 0.0247
+[39/183] CASE-0039 attempts 1 PASS spend USD 0.0252
+[40/183] CASE-0040 attempts 1 PASS spend USD 0.0261
+[41/183] CASE-0041 attempts 1 PASS spend USD 0.0268
+[42/183] CASE-0042 attempts 1 PASS spend USD 0.0272
+[43/183] CASE-0043 attempts 1 PASS spend USD 0.0277
+[44/183] CASE-0044 attempts 1 PASS spend USD 0.0281
+[45/183] CASE-0045 attempts 1 PASS spend USD 0.0286
+[46/183] CASE-0046 attempts 1 PASS spend USD 0.0291
+[47/183] CASE-0047 attempts 1 PASS spend USD 0.0295
+[48/183] CASE-0048 attempts 2 PASS spend USD 0.0317
+[49/183] CASE-0049 attempts 1 PASS spend USD 0.0325
+[50/183] CASE-0050 attempts 2 PASS spend USD 0.0335
+[51/183] CASE-0051 attempts 2 PASS spend USD 0.0346
+[52/183] CASE-0052 attempts 1 PASS spend USD 0.0350
+[53/183] CASE-0053 attempts 1 PASS spend USD 0.0354
+[54/183] CASE-0054 attempts 1 PASS spend USD 0.0359
+[55/183] CASE-0055 attempts 2 PASS spend USD 0.0369
+[56/183] CASE-0056 attempts 1 PASS spend USD 0.0373
+[57/183] CASE-0057 attempts 1 PASS spend USD 0.0378
+[58/183] CASE-0058 attempts 1 PASS spend USD 0.0384
+[59/183] CASE-0059 attempts 1 PASS spend USD 0.0390
+[60/183] CASE-0060 attempts 1 PASS spend USD 0.0394
+[61/183] CASE-0061 attempts 1 PASS spend USD 0.0399
+[62/183] CASE-0062 attempts 1 PASS spend USD 0.0404
+[63/183] CASE-0063 attempts 1 PASS spend USD 0.0408
+[64/183] CASE-0064 attempts 1 PASS spend USD 0.0421
+[65/183] CASE-0065 attempts 1 PASS spend USD 0.0426
+[66/183] CASE-0066 attempts 1 PASS spend USD 0.0430
+[67/183] CASE-0067 attempts 2 PASS spend USD 0.0442
+[68/183] CASE-0068 attempts 1 PASS spend USD 0.0447
+[69/183] CASE-0069 attempts 2 PASS spend USD 0.0457
+[70/183] CASE-0070 attempts 1 PASS spend USD 0.0462
+[71/183] CASE-0071 attempts 1 PASS spend USD 0.0466
+[72/183] CASE-0072 attempts 2 PASS spend USD 0.0483
+[73/183] CASE-0073 attempts 1 PASS spend USD 0.0488
+[74/183] CASE-0074 attempts 1 PASS spend USD 0.0492
+[75/183] CASE-0075 attempts 2 PASS spend USD 0.0503
+[76/183] CASE-0076 attempts 1 PASS spend USD 0.0515
+[77/183] CASE-0077 attempts 2 PASS spend USD 0.0533
+[78/183] CASE-0078 attempts 2 PASS spend USD 0.0547
+[79/183] CASE-0079 attempts 3 PASS spend USD 0.0564
+[80/183] CASE-0080 attempts 1 PASS spend USD 0.0568
+[81/183] CASE-0081 attempts 1 PASS spend USD 0.0580
+[82/183] CASE-0082 attempts 1 PASS spend USD 0.0589
+[83/183] CASE-0083 attempts 1 PASS spend USD 0.0593
+[84/183] CASE-0084 attempts 1 PASS spend USD 0.0598
+[85/183] CASE-0085 attempts 1 PASS spend USD 0.0602
+[86/183] CASE-0086 attempts 1 PASS spend USD 0.0609
+[87/183] CASE-0087 attempts 1 PASS spend USD 0.0620
+[88/183] CASE-0088 attempts 1 PASS spend USD 0.0624
+[89/183] CASE-0089 attempts 1 PASS spend USD 0.0629
+[90/183] CASE-0090 attempts 3 FAIL spend USD 0.0645
+[91/183] CASE-0091 attempts 1 PASS spend USD 0.0650
+[92/183] CASE-0092 attempts 1 PASS spend USD 0.0662
+[93/183] CASE-0093 attempts 2 PASS spend USD 0.0673
+[94/183] CASE-0094 attempts 2 PASS spend USD 0.0688
+[95/183] CASE-0095 attempts 1 PASS spend USD 0.0699
+[96/183] CASE-0096 attempts 1 PASS spend USD 0.0704
+[97/183] CASE-0097 attempts 1 PASS spend USD 0.0708
+[98/183] CASE-0098 attempts 1 PASS spend USD 0.0713
+[99/183] CASE-0099 attempts 2 PASS spend USD 0.0723
+[100/183] CASE-0100 attempts 2 PASS spend USD 0.0733
+[101/183] CASE-0101 attempts 1 PASS spend USD 0.0738
+[102/183] CASE-0102 attempts 2 PASS spend USD 0.0749
+[103/183] CASE-0103 attempts 1 PASS spend USD 0.0753
+[104/183] CASE-0104 attempts 3 PASS spend USD 0.0783
+[105/183] CASE-0105 attempts 1 PASS spend USD 0.0787
+[106/183] CASE-0106 attempts 2 PASS spend USD 0.0796
+[107/183] CASE-0107 attempts 2 PASS spend USD 0.0807
+[108/183] CASE-0108 attempts 1 PASS spend USD 0.0812
+[109/183] CASE-0109 attempts 3 FAIL spend USD 0.0841
+[110/183] CASE-0110 attempts 2 PASS spend USD 0.0852
+[111/183] CASE-0111 attempts 2 PASS spend USD 0.0868
+[112/183] CASE-0112 attempts 2 PASS spend USD 0.0880
+[113/183] CASE-0113 attempts 1 PASS spend USD 0.0884
+[114/183] CASE-0114 attempts 1 PASS spend USD 0.0897
+[115/183] CASE-0115 attempts 1 PASS spend USD 0.0901
+[116/183] CASE-0116 attempts 1 PASS spend USD 0.0907
+[117/183] CASE-0117 attempts 3 PASS spend USD 0.0928
+[118/183] CASE-0118 attempts 1 PASS spend USD 0.0932
+[119/183] CASE-0119 attempts 2 PASS spend USD 0.0952
+[120/183] CASE-0120 attempts 1 PASS spend USD 0.0957
+[121/183] CASE-0121 attempts 1 PASS spend USD 0.0961
+[122/183] CASE-0122 attempts 1 PASS spend USD 0.0966
+[123/183] CASE-0123 attempts 1 PASS spend USD 0.0977
+[124/183] CASE-0124 attempts 1 PASS spend USD 0.0982
+[125/183] CASE-0125 attempts 1 PASS spend USD 0.0986
+[126/183] CASE-0126 attempts 3 PASS spend USD 0.1011
+[127/183] CASE-0127 attempts 2 PASS spend USD 0.1026
+[128/183] CASE-0128 attempts 3 PASS spend USD 0.1054
+[129/183] CASE-0129 attempts 1 PASS spend USD 0.1065
+[130/183] CASE-0130 attempts 2 PASS spend USD 0.1075
+[131/183] CASE-0131 attempts 1 PASS spend USD 0.1079
+[132/183] CASE-0132 attempts 1 PASS spend USD 0.1088
+[133/183] CASE-0133 attempts 1 PASS spend USD 0.1093
+[134/183] CASE-0134 attempts 1 PASS spend USD 0.1097
+[135/183] CASE-0135 attempts 2 PASS spend USD 0.1109
+[136/183] CASE-0136 attempts 1 PASS spend USD 0.1114
+[137/183] CASE-0137 attempts 1 PASS spend USD 0.1118
+[138/183] CASE-0138 attempts 1 PASS spend USD 0.1123
+[139/183] CASE-0139 attempts 1 PASS spend USD 0.1127
+[140/183] CASE-0140 attempts 1 PASS spend USD 0.1132
+[141/183] CASE-0141 attempts 1 PASS spend USD 0.1136
+[142/183] CASE-0142 attempts 2 PASS spend USD 0.1151
+[143/183] CASE-0143 attempts 1 PASS spend USD 0.1162
+[144/183] CASE-0144 attempts 3 FAIL spend USD 0.1179
+[145/183] CASE-0145 attempts 1 PASS spend USD 0.1191
+[146/183] CASE-0146 attempts 1 PASS spend USD 0.1201
+[147/183] CASE-0147 attempts 1 PASS spend USD 0.1206
+[148/183] CASE-0148 attempts 1 PASS spend USD 0.1210
+[149/183] CASE-0149 attempts 1 PASS spend USD 0.1215
+[150/183] CASE-0150 attempts 1 PASS spend USD 0.1220
+[151/183] CASE-0151 attempts 2 PASS spend USD 0.1232
+[152/183] CASE-0152 attempts 1 PASS spend USD 0.1245
+[153/183] CASE-0153 attempts 1 PASS spend USD 0.1250
+[154/183] CASE-0154 attempts 1 PASS spend USD 0.1254
+[155/183] CASE-0155 attempts 1 PASS spend USD 0.1258
+[156/183] CASE-0156 attempts 1 PASS spend USD 0.1267
+[157/183] CASE-0157 attempts 1 PASS spend USD 0.1272
+[158/183] CASE-0158 attempts 1 PASS spend USD 0.1285
+[159/183] CASE-0159 attempts 1 PASS spend USD 0.1290
+[160/183] CASE-0160 attempts 1 PASS spend USD 0.1295
+[161/183] CASE-0161 attempts 2 PASS spend USD 0.1304
+[162/183] CASE-0162 attempts 2 PASS spend USD 0.1327
+[163/183] CASE-0163 attempts 1 PASS spend USD 0.1331
+[164/183] CASE-0164 attempts 1 PASS spend USD 0.1336
+[165/183] CASE-0165 attempts 1 PASS spend USD 0.1340
+[166/183] CASE-0166 attempts 1 PASS spend USD 0.1345
+[167/183] CASE-0167 attempts 1 PASS spend USD 0.1354
+[168/183] CASE-0168 attempts 2 PASS spend USD 0.1366
+[169/183] CASE-0169 attempts 2 PASS spend USD 0.1377
+[170/183] CASE-0170 attempts 1 PASS spend USD 0.1381
+[171/183] CASE-0171 attempts 1 PASS spend USD 0.1386
+[172/183] CASE-0172 attempts 1 PASS spend USD 0.1390
+[173/183] CASE-0173 attempts 1 PASS spend USD 0.1395
+[174/183] CASE-0174 attempts 2 PASS spend USD 0.1405
+[175/183] CASE-0175 attempts 1 PASS spend USD 0.1410
+[176/183] CASE-0176 attempts 2 PASS spend USD 0.1422
+[177/183] CASE-0177 attempts 2 PASS spend USD 0.1431
+[178/183] CASE-0178 attempts 1 PASS spend USD 0.1437
+[179/183] CASE-0179 attempts 1 PASS spend USD 0.1441
+[180/183] CASE-0180 attempts 1 PASS spend USD 0.1446
+[181/183] CASE-0181 attempts 2 PASS spend USD 0.1462
+[182/183] CASE-0182 attempts 1 PASS spend USD 0.1471
+[183/183] CASE-0183 attempts 2 PASS spend USD 0.1481
+{
+  "model": "claude-haiku-5-5",
+  "prompt_version": "v1",
+  "cases": 183,
+  "cap_usd": 2.0,
+  "worst_case_estimate_usd": 0.7788,
+  "started_at": "2026-11-05T17:34:58+00:00",
+  "status": "complete",
+  "drafts": 183,
+  "cases_without_usable_draft": [],
+  "api_calls": 243,
+  "input_tokens": 710689,
+  "output_tokens": 154156,
+  "spend_usd": 0.1481,
+  "first_attempt_passed": 134,
+  "final_passed": 178,
+  "finished_at": "2026-11-05T17:49:21+00:00"
+}

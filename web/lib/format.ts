@@ -9,12 +9,12 @@ export const num = (v: number, decimals = 0) =>
 /** €9.450 */
 export const eur = (v: number) => `€${num(Math.round(v))}`;
 
-/** €9,5k / €1,2m / €950 */
+/** €9,5k / €1,2m / €950 / −€3,0k */
 export const eurShort = (v: number) => {
-  const a = Math.abs(v);
-  if (a >= 1e6) return `€${num(v / 1e6, 1)}m`;
-  if (a >= 1e3) return `€${num(v / 1e3, 1)}k`;
-  return eur(v);
+  const a = Math.abs(v), sign = v < 0 ? "−" : "";
+  if (a >= 1e6) return `${sign}€${num(a / 1e6, 1)}m`;
+  if (a >= 1e3) return `${sign}€${num(a / 1e3, 1)}k`;
+  return `${sign}${eur(a)}`;
 };
 
 /** 12,3 % */
