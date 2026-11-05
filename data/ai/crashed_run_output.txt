@@ -11,39 +11,39 @@
 [10/183] CASE-0010 attempts 1 PASS spend USD 0.0071
 [11/183] CASE-0011 attempts 1 PASS spend USD 0.0075
 Traceback (most recent call last):
-  File "C:\Users\knbar\Projects\aml-queue\scripts\write_summaries.py", line 258, in <module>
+  File "<local>\scripts\write_summaries.py", line 258, in <module>
     main()
-  File "C:\Users\knbar\Projects\aml-queue\scripts\write_summaries.py", line 201, in main
+  File "<local>\scripts\write_summaries.py", line 201, in main
     resp = client.messages.parse(model=MODEL, max_tokens=MAX_TOKENS, system=system, messages=messages,
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\knbar\anaconda3\Lib\site-packages\anthropic\resources\messages\messages.py", line 1318, in parse
+  File "<local>\Lib\site-packages\anthropic\resources\messages\messages.py", line 1318, in parse
     return self._post(
            ^^^^^^^^^^^
-  File "C:\Users\knbar\anaconda3\Lib\site-packages\anthropic\_base_client.py", line 1679, in post
+  File "<local>\Lib\site-packages\anthropic\_base_client.py", line 1679, in post
     return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\knbar\anaconda3\Lib\site-packages\anthropic\_base_client.py", line 1230, in request
+  File "<local>\Lib\site-packages\anthropic\_base_client.py", line 1230, in request
     return self._request(cast_to, options, stream=stream, stream_cls=stream_cls)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\knbar\anaconda3\Lib\site-packages\anthropic\_base_client.py", line 1268, in _request
+  File "<local>\Lib\site-packages\anthropic\_base_client.py", line 1268, in _request
     result = self._process_response(
              ^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\knbar\anaconda3\Lib\site-packages\anthropic\_base_client.py", line 1550, in _process_response
+  File "<local>\Lib\site-packages\anthropic\_base_client.py", line 1550, in _process_response
     return api_response.parse()
            ^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\knbar\anaconda3\Lib\site-packages\anthropic\_response.py", line 353, in parse
+  File "<local>\Lib\site-packages\anthropic\_response.py", line 353, in parse
     parsed = self._options.post_parser(parsed)
              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\knbar\anaconda3\Lib\site-packages\anthropic\resources\messages\messages.py", line 1300, in parser
+  File "<local>\Lib\site-packages\anthropic\resources\messages\messages.py", line 1300, in parser
     return parse_response(
            ^^^^^^^^^^^^^^^
-  File "C:\Users\knbar\anaconda3\Lib\site-packages\anthropic\lib\_parse\_response.py", line 60, in parse_response
+  File "<local>\Lib\site-packages\anthropic\lib\_parse\_response.py", line 60, in parse_response
     value={**content.to_dict(), "parsed_output": parse_text(content.text, output_format)},
                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\knbar\anaconda3\Lib\site-packages\anthropic\lib\_parse\_response.py", line 19, in parse_text
+  File "<local>\Lib\site-packages\anthropic\lib\_parse\_response.py", line 19, in parse_text
     return adapted_type.validate_json(text)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\knbar\anaconda3\Lib\site-packages\pydantic\type_adapter.py", line 466, in validate_json
+  File "<local>\Lib\site-packages\pydantic\type_adapter.py", line 466, in validate_json
     return self.validator.validate_json(
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 pydantic_core._pydantic_core.ValidationError: 1 validation error for CaseDraft
