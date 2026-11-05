@@ -58,7 +58,7 @@ All thresholds are own assumptions in `config/rules.yaml`. Each rule is evaluate
 
 ### The trade-off (computed from the 2x2 table)
 
-If an analyst reviewed only the cases the AI suggests escalating: 100 of 183 cases reviewed, 30 of 34 truly suspicious cases found, 4 missed. In AML a missed case costs more than a false positive, so the AI is used to order the queue, not to close cases. Formula: reviewed = AI escalate on suspicious (30) + AI escalate on not suspicious (70); found = 30 of 30 + 4; missed = AI close on suspicious (4). Shown in the Rule performance tab (`web/components/RulePerformance.tsx`), computed in the page from `data/eval/scores.json`.
+If an analyst reviewed only the cases the AI suggests escalating: 100 of 183 cases reviewed, 30 of 34 truly suspicious cases found, 4 missed. In AML a missed case costs more than a false positive, so the AI is used to order the queue, not to close cases. Formula: reviewed = AI escalate on suspicious (30) + AI escalate on not suspicious (70); found = 30 of (30 + 4); missed = AI close on suspicious (4). Shown in the Rule performance tab (`web/components/RulePerformance.tsx`), computed in the page from `data/eval/scores.json`.
 
 ## 5. The risk score (`sql/11_v_cases.sql`)
 

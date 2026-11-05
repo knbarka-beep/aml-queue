@@ -101,12 +101,15 @@ export default function HowItWorks() {
 
         <h2>Limitations</h2>
         <ul>
-          <li>The data is synthetic and the patterns are planted by the same person who wrote the rules, so the scores are easier than real life.</li>
-          <li>Precision and recall here come from an answer key. A real team only learns them from analyst decisions and later outcomes.</li>
-          <li>No analyst decisions exist yet, so every case is open and there is no feedback loop.</li>
-          <li>Thresholds are own assumptions, not tuned and not validated on real data.</li>
+          <li>The data is synthetic. R3 and R6 at 100 % precision are an artefact of how normal customers were generated: they rarely have many senders or counterparties. Real data would not be this clean.</li>
+          <li>The AI run: the first launch made no calls (a compression bug), the second crashed after 11 cases (a script bug). The 11 drafts were archived unread, the script was fixed, and the full run was done once with the unchanged prompt, checks and cap.
+            {meta.ai_run?.spend_usd != null && ` The complete run cost USD ${num(meta.ai_run.spend_usd, 2)}; total AI cost about USD 0,16.`}</li>
+          {ai && <li>{ai.drafts - ai.number_check_final_passed} of {ai.drafts} drafts still fail the check after retries (word limit only) and are shown as failing.</li>}
+          <li>One run, one prompt version. Variation between runs is not measured.</li>
+          <li>The fairness check covers name origin only, on 25 to 90 cases per group. It is reported, not tested statistically.</li>
+          <li>Thresholds and risk weights are own assumptions, not taken from any regulator or employer, and not tuned on real data.</li>
+          <li>No analyst decisions exist. The queue shows suggestions only, and precision and recall come from an answer key, not from analyst outcomes.</li>
           <li>No network view: shared senders or recipients across customers are not linked.</li>
-          <li>The AI quality figures measure agreement with the planted truth on one run of one prompt, not time saved.</li>
         </ul>
       </article>
       <Footer />
