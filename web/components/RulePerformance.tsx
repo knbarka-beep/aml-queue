@@ -43,7 +43,7 @@ export default function RulePerformance() {
         </div>
         <div className="tablewrap">
           <table>
-            <thead><tr><th>Rule</th><th className="num">Cases</th><th className="num">Customers (planted)</th><th className="num">Truly suspicious cases</th><th className="num">Precision</th><th className="num">Pattern caught by its rule</th></tr></thead>
+            <thead><tr><th>Rule</th><th className="num">Cases</th><th className="num">Customers (planted)</th><th className="num">Truly suspicious</th><th className="num">Precision</th><th className="num">Pattern caught</th></tr></thead>
             <tbody>
               {rulePerformance.map((r) => (
                 <tr key={r.rule_id}>

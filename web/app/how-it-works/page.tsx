@@ -30,6 +30,8 @@ export default function HowItWorks() {
         <p>Rules flag transfers that look suspicious. Alerts on the same customer within 14 days become one case. For every case,
           an AI model drafts a short note and suggests a next step: escalate, or close as a false positive. An analyst decides.
           The AI never decides and never says that anyone committed a crime; it describes behaviour.</p>
+        <p>The first KPI, &quot;AI suggests escalation&quot;, counts the cases raised in the selected month that the AI suggests
+          escalating. These are suggestions only: no analyst decisions exist in this demo.</p>
 
         <h2>The data</h2>
         <p>{num(2000)} invented customers of Lysbro Pay ApS (fictional) and their transfers from Jan to Sep 2026 (Jan-Mar only as

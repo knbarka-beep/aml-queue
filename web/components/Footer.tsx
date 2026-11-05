@@ -5,6 +5,7 @@ export default function Footer() {
       <span>All data is fictional: Lysbro Pay ApS (fictional) and its customers are invented.</span>
       {/* Plain link: a full page load avoids the RSC prefetch file that a static export does not serve. */}
       <a href="/how-it-works/">How this works</a>
+      <a href="https://github.com/knbarka-beep/aml-queue">Code on GitHub</a>
     </footer>
   );
 }
