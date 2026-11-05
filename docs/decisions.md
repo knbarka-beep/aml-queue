@@ -30,3 +30,14 @@ Small choices made during the unattended build on 05.11.2026, with the reason an
 ## Stage 4 pre-registration (written before any AI call or scoring)
 
 The metrics in `docs/metrics.md` are fixed as of this commit: true-positive definition (planted customer, case date on or after the pattern start), precision per rule and overall, recall overall and per pattern, AI escalation rate on true positives, AI close rate on false positives, the 2x2 table, number-check pass rates first attempt and final. One prompt version. No changes after the results are seen.
+
+## Stage 3: AI case summaries (committed before the run)
+
+- **Model `claude-haiku-5-5`, effort `low`, max 2.000 output tokens.** Cheapest current model; the task is a short structured summary from pre-formatted numbers. Alternative: Sonnet 5.5 at 20 times the price; not needed for this.
+- **Structured output** via `client.messages.parse(output_format=CaseDraft)`: the API returns JSON matching the schema, so "required fields" rarely fail; the other checks still run.
+- **Input**: case data from `data/export/` only (no name, no name origin). Amounts as `{eur, display, short}` so the model can copy a display form. Counterparty ids are replaced by a type ("customer's own account at another bank", "cash agent", "other party"), so the text is about behaviour, not ids. At most 25 triggering transactions are listed (the largest), the rest as a count and total.
+- **Checks** (`scripts/check_summaries.py`): fields, word limits (summary 60-100, reasons at most 25 words each, 1-3 reasons, 1-4 missing items), "[Analyst: ...]" format, every number in the input within the rounding shown, no date or month after the case date, banned words. Added to the prompt's list: "crime", "launder" in any form, and the em dash (house rule).
+- **Retry rule**: on failure one follow-up message lists the failed checks; at most 2 retries; the last attempt is kept even if it still fails, and is marked as failing on the dashboard. Every attempt is stored in `data/ai/summary_attempts.csv`.
+- **Cost cap USD 2,00.** Worst-case estimate before calling: 3 attempts per case, every attempt using all 2.000 output tokens, input estimated at 3 characters per token: USD 0,78 for 183 cases. During the run, the script stops before any call that could take spend past the cap. Price: USD 0,10 / 0,50 per million input / output tokens.
+- **Run once.** The script refuses to run if `data/ai/summaries.json` already exists.
+- **Prompt inputs are written to `data/ai/prompts/inputs.jsonl` on every run**, so anyone can see exactly what the model saw.
