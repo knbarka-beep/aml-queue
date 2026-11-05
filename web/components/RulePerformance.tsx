@@ -13,6 +13,11 @@ export default function RulePerformance() {
     falsePositive: r.cases - (r.true_positive_cases ?? 0),
   }));
   const ai = s?.ai;
+  const byRule = Object.fromEntries((s?.rules ?? []).map((r) => [r.rule_id, r]));
+  // The trade-off if an analyst reviewed only the cases the AI suggests escalating (from the 2x2 table).
+  const t = ai?.table;
+  const reviewed = t ? t.suspicious_escalate + t.not_suspicious_escalate : 0;
+  const suspicious = t ? t.suspicious_escalate + t.suspicious_close : 0;
   return (
     <div className="grid2">
       <div className="card stack">
@@ -38,12 +43,13 @@ export default function RulePerformance() {
         </div>
         <div className="tablewrap">
           <table>
-            <thead><tr><th>Rule</th><th className="num">Cases</th><th className="num">Truly suspicious</th><th className="num">Precision</th><th className="num">Pattern caught by its rule</th></tr></thead>
+            <thead><tr><th>Rule</th><th className="num">Cases</th><th className="num">Customers (planted)</th><th className="num">Truly suspicious cases</th><th className="num">Precision</th><th className="num">Pattern caught by its rule</th></tr></thead>
             <tbody>
               {rulePerformance.map((r) => (
                 <tr key={r.rule_id}>
                   <td>{r.rule_id} {r.name}</td>
                   <td className="num">{r.cases}</td>
+                  <td className="num">{byRule[r.rule_id] ? `${byRule[r.rule_id].customers} (${byRule[r.rule_id].planted_customers})` : "n/a"}</td>
                   <td className="num">{r.true_positive_cases ?? "n/a"}</td>
                   <td className="num">{pct(r.precision_pct)}</td>
                   <td className="num">{r.caught_customers_with_pattern ?? "n/a"} of {r.planted_customers_with_pattern ?? "n/a"}</td>
@@ -52,7 +58,7 @@ export default function RulePerformance() {
             </tbody>
           </table>
         </div>
-        <p className="small muted">A case can hit several rules, so the rule rows add up to more than the number of cases. Precision and recall are measured against the answer key of the synthetic data.</p>
+        <p className="small muted">A case can hit several rules, so the rule rows add up to more than the number of cases. Precision counts cases; one customer can have several cases from the same rule, so the customers column shows how many different customers that is, and how many of them were planted. Precision and recall are measured against the answer key of the synthetic data.</p>
       </div>
 
       <div className="card stack">
@@ -68,6 +74,9 @@ export default function RulePerformance() {
                 </tbody>
               </table>
             </div>
+            <p className="decide" id="trade-off">If an analyst reviewed only the cases the AI suggests escalating: {reviewed} of {s!.overall.cases} cases
+              reviewed, {t!.suspicious_escalate} of {suspicious} truly suspicious cases found, {t!.suspicious_close} missed.
+              In AML a missed case costs more than a false positive, so the AI is used to order the queue, not to close cases.</p>
             <p><strong>{pct(ai.escalation_rate_on_suspicious_pct)}</strong> of truly suspicious cases suggested for escalation.
               A missed escalation is the costly error: the analyst could close a real case.</p>
             <p><strong>{pct(ai.close_rate_on_false_positives_pct)}</strong> of false positives suggested for closing.

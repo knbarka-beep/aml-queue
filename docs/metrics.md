@@ -6,7 +6,7 @@ Every formula used on the dashboard and in the evaluation, with the file that co
 
 | KPI | Formula | File |
 |---|---|---|
-| Open cases | cases with a case date on or before the end of the selected month and status "Awaiting analyst". No analyst decisions exist in this demo, so every case is open and the figure is the cumulative backlog. | `sql/14_v_monthly_kpis.sql` (open_cases_month_end) |
+| AI suggests escalation | cases raised in the selected month (case date in the month) whose AI draft suggests "escalate", shown as "x of n cases". Suggestions only; no analyst decisions exist in this demo. Replaced "Open cases" on 05.11.2026, which always equalled the cumulative backlog. | `web/components/KpiRow.tsx`, from `web/data/cases.json` |
 | Cases this month | cases whose case date falls in the selected month, compared with the month before | `sql/14_v_monthly_kpis.sql` |
 | Rule precision | cases on a truly suspicious customer / all cases, Apr-Sep 2026 | `scripts/evaluate.py` -> `data/eval/scores.json` |
 | Planted patterns caught (recall) | planted customers with at least one true-positive case / all planted customers | `scripts/evaluate.py` |

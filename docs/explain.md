@@ -28,12 +28,12 @@ Written for Knut, to learn the project after the build. All data is fictional (L
 
 | KPI | Formula | File | Sep 2026 |
 |---|---|---|---|
-| Open cases | cases with case date up to the end of the month, status "Awaiting analyst" | `sql/14_v_monthly_kpis.sql`, `open_cases_month_end` | 183 |
+| AI suggests escalation | cases raised in the month whose AI draft says "escalate" / all cases raised in the month | `web/components/KpiRow.tsx` | 16 of 26 |
 | Cases this month | cases with case date in the month; compared with the month before | same view, `cases_in_month`, `cases_prev_month` | 26 (−10 vs Aug) |
 | Rule precision | truly suspicious cases / all cases, Apr-Sep | `scripts/evaluate.py` | 18,6 % (34 of 183) |
 | Planted patterns caught | planted customers with a truly suspicious case / 30 | `scripts/evaluate.py` | 27 of 30 (90,0 %) |
 
-**Why "open cases" equals all cases**: nobody has decided any case in this demo. In a real queue, cases leave the backlog when an analyst closes or escalates them. The KPI explanation says this.
+**Why not "open cases"**: the first version showed the open backlog, but nobody decides any case in this demo, so it always equalled every case so far (183) and said nothing. "AI suggests escalation" shows how much of the month the AI would push forward. It is a suggestion count, not a decision count.
 
 **Why precision and recall are not per month**: with 34 truly suspicious cases in total, monthly figures would swing on one or two cases. Six months together is more honest.
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { meta, type MonthKpi } from "@/lib/data";
+import { cases, meta, type MonthKpi } from "@/lib/data";
 import { monthLabel, pct, signed } from "@/lib/format";
 
 type Kpi = { id: string; title: string; value: string; sub: string; explain: string };
@@ -11,10 +11,12 @@ export default function KpiRow({ kpi }: { kpi: MonthKpi }) {
   const s = meta.scores?.overall;
   const prev = monthLabel(meta.months[Math.max(0, meta.months.indexOf(kpi.month) - 1)]);
   const delta = kpi.cases_in_month - kpi.cases_prev_month;
+  const inMonth = cases.filter((c) => c.case_month === kpi.month);
+  const escalate = inMonth.filter((c) => c.ai?.suggestion === "escalate").length;
   const items: Kpi[] = [
-    { id: "open", title: "Open cases", value: String(kpi.open_cases_month_end),
-      sub: `awaiting an analyst at the end of ${monthLabel(kpi.month)}`,
-      explain: "Cases with a case date up to the end of the selected month that no analyst has decided yet. This demo has no analyst decisions, so every case is still open and the figure is the backlog since Apr 2026." },
+    { id: "esc", title: "AI suggests escalation", value: `${escalate} of ${inMonth.length}`,
+      sub: `cases raised in ${monthLabel(kpi.month)}`,
+      explain: "Cases raised in the selected month that the AI suggests escalating. Suggestions only. No analyst decisions exist in this demo." },
     { id: "month", title: "Cases this month", value: String(kpi.cases_in_month),
       sub: kpi.month === meta.months[0] ? "first month of data" : `${signed(delta)} vs ${prev}`,
       explain: "Cases whose case date (the date of the last alert in the case) falls in the selected month. Alerts on one customer within 14 days form one case." },

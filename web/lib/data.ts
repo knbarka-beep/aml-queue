@@ -37,6 +37,7 @@ export type RulePerf = {
 export type Scores = {
   overall: { cases: number; true_positive_cases: number; false_positive_cases: number; precision_pct: number;
     planted_customers: number; planted_customers_caught: number; recall_pct: number; cases_on_planted_customers_before_pattern_start: number };
+  rules: { rule_id: string; cases: number; true_positive_cases: number; customers: number; planted_customers: number }[];
   recall_by_primary_pattern: Record<string, { planted: number; caught: number }>;
   recall_by_strength: Record<string, { planted: number; caught: number }>;
   ai?: { drafts: number; cases_without_draft: number;

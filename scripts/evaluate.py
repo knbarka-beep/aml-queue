@@ -47,7 +47,9 @@ def main():
         pattern = [p for p, r in RULE_FOR.items() if r == rid][0]
         has_pattern = [cid for cid, p in planted.items() if pattern in p["patterns"].split("+")]
         caught_by_rule = {c["customer_id"] for c in with_rule if tp[c["case_id"]]}
+        customers = {c["customer_id"] for c in with_rule}  # one customer can have several cases
         rules.append({"rule_id": rid, "cases": len(with_rule), "true_positive_cases": n_tp,
+                      "customers": len(customers), "planted_customers": len(customers & set(planted)),
                       "precision_pct": pct(n_tp, len(with_rule)), "planted_customers_with_pattern": len(has_pattern),
                       "caught_customers_with_pattern": len(set(has_pattern) & caught_by_rule),
                       "recall_pct": pct(len(set(has_pattern) & caught_by_rule), len(has_pattern))})
