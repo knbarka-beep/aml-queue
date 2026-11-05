@@ -2,7 +2,7 @@
 
 A compliance dashboard for a fictional Danish payment company: rules flag suspicious transfers, AI drafts a case note and suggests a next step, an analyst decides. **All data is synthetic.**
 
-**Live:** _link added at deploy_ · **Case sheet:** [docs/case-sheet.md](docs/case-sheet.md)
+**Live:** https://lysbro-aml.vercel.app · **Case sheet:** [docs/case-sheet.md](docs/case-sheet.md)
 
 ![Alert queue, Sep 2026](docs/screenshots/desktop-light.png)
 
