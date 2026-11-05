@@ -40,3 +40,8 @@ Fairness (aggregate, `scripts/evaluate.py`): case rate and AI escalation rate pe
 
 - One prompt version (`prompts/case_summary_v1.md`). Prompts, rules and these metrics are not changed after the results are seen.
 - The results are reported as they come out.
+
+## Added on 05.11.2026 after the review (no existing metric changed)
+
+- **Customers per rule**: distinct customers with at least one case containing the rule, and how many of them are planted. Written by `scripts/evaluate.py` as `customers` and `planted_customers` per rule. Precision stays per case.
+- **Trade-off line**: if an analyst reviewed only the cases the AI suggests escalating: reviewed = suspicious_escalate + not_suspicious_escalate; found = suspicious_escalate of (suspicious_escalate + suspicious_close); missed = suspicious_close. Computed from the 2x2 table in `data/eval/scores.json`.

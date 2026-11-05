@@ -52,7 +52,13 @@ All thresholds are own assumptions in `config/rules.yaml`. Each rule is evaluate
 | R5 High-risk corridor (`sql/06`) | to high-tier countries within 30 days: €5.000+ in total or 3+ transfers | exposure to high-risk jurisdictions is a standard risk factor | 64 cases, 9,4 %. Legitimate family support and suppliers in high-tier countries |
 | R6 Purpose mismatch (`sql/07`) | savings or family-support customer with 12+ counterparties in 30 days | KYC says one thing, behaviour says another | 11 cases, 100 %. Again too clean on synthetic data |
 
+**Precision per case and per customer**: precision counts cases, and one customer can have several cases from the same rule, so the Rule performance table also shows distinct customers per rule and how many were planted; here only R5 differs (64 cases on 43 customers, 6 of them planted, so 9,4 % per case and 14,0 % per customer).
+
 **Alerts** (`sql/08`): a rule alerts again on the same customer only after 30 quiet days. **Cases** (`sql/09`): alerts on one customer within 14 days of each other form one case; the case date is the last alert's date. **Recall per pattern**: all 24 full versions caught; 3 of 6 weak versions caught (by design they sit just under a threshold of their own rule; the 3 caught were picked up by a case after the pattern started).
+
+### The trade-off (computed from the 2x2 table)
+
+If an analyst reviewed only the cases the AI suggests escalating: 100 of 183 cases reviewed, 30 of 34 truly suspicious cases found, 4 missed. In AML a missed case costs more than a false positive, so the AI is used to order the queue, not to close cases. Formula: reviewed = AI escalate on suspicious (30) + AI escalate on not suspicious (70); found = 30 of 30 + 4; missed = AI close on suspicious (4). Shown in the Rule performance tab (`web/components/RulePerformance.tsx`), computed in the page from `data/eval/scores.json`.
 
 ## 5. The risk score (`sql/11_v_cases.sql`)
 
