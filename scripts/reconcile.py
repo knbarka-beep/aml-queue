@@ -1,7 +1,7 @@
 """Reconciliation checks on the generated data. Prints PASS/FAIL per check and exits 1 on any FAIL.
 
-Never reads data/truth/. The fairness check result is read from data/checks/fairness.json,
-which generate.py writes (the generator is the only script that knows the planted customers).
+Never reads the answer key. The fairness check result is read from data/checks/fairness.json,
+which generate.py writes (the generator is the only script besides evaluate.py that knows the planted customers).
 Run:  python scripts/reconcile.py
 """
 import json

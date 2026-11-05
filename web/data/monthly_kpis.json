@@ -1,0 +1,8 @@
+[
+{"month": "2026-04", "cases_in_month": 28, "cases_prev_month": 0, "open_cases_month_end": 28, "alerts_in_month": 35},
+{"month": "2026-05", "cases_in_month": 30, "cases_prev_month": 28, "open_cases_month_end": 58, "alerts_in_month": 37},
+{"month": "2026-06", "cases_in_month": 25, "cases_prev_month": 30, "open_cases_month_end": 83, "alerts_in_month": 38},
+{"month": "2026-07", "cases_in_month": 38, "cases_prev_month": 25, "open_cases_month_end": 121, "alerts_in_month": 40},
+{"month": "2026-08", "cases_in_month": 36, "cases_prev_month": 38, "open_cases_month_end": 157, "alerts_in_month": 44},
+{"month": "2026-09", "cases_in_month": 26, "cases_prev_month": 36, "open_cases_month_end": 183, "alerts_in_month": 26}
+]
