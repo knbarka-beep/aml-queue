@@ -6,3 +6,9 @@ web/.next/
 web/out/
 web/next-env.d.ts
 web/tsconfig.tsbuildinfo
+*.duckdb*
+node_modules/
+.next/
+out/
+private/
+.vercel
