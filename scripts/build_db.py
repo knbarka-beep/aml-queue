@@ -184,6 +184,11 @@ def main():
                t.counterparty_country, t.country_tier, t.channel
         FROM v_tx t JOIN span s USING (customer_id) WHERE t.tx_date BETWEEN s.d0 AND s.d1
         ORDER BY t.customer_id, t.ts"""))
+    # Counterparty network for the drill-down (sql/17_v_case_network.sql): 90 days up to the case date, capped at 25 nodes.
+    write_json("case_network", rows(con, """
+        SELECT case_id, customer_id, is_case_customer, node_id, counterparty_country, country_tier, counterparties,
+               direction, n_transfers, amount_eur
+        FROM v_case_network ORDER BY case_id, amount_eur DESC, node_id, direction"""))
     write_json("customers", rows(con, "SELECT * FROM v_customer_profile ORDER BY customer_id"))
     write_json("monthly_kpis", rows(con, "SELECT * FROM v_monthly_kpis"))
     write_json("rule_performance", rows(con, "SELECT * FROM v_rule_performance"))
