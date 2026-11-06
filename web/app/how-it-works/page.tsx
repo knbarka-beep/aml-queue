@@ -21,7 +21,7 @@ export default function HowItWorks() {
   const tiers = (t: string) => Object.entries(meta.countries).filter(([, v]) => v === t).map(([k]) => k).join(", ");
   return (
     <main className="page">
-      <p><Link href="/">← Back to the alert queue</Link></p>
+      <p className="back"><Link href="/">← Back to the alert queue</Link></p>
       <article className="card prose">
         <h1>How this works</h1>
         <p className="notice">{meta.notice} Nothing here comes from a real company, customer or employer.</p>
@@ -59,6 +59,19 @@ export default function HowItWorks() {
           KYC points: low {meta.risk_score.kyc_points.low}, medium {meta.risk_score.kyc_points.medium}, high {meta.risk_score.kyc_points.high}.
           Amount points: up to {meta.risk_score.amount_points_max}, reached when the amount involved is {meta.risk_score.amount_ratio_full} times
           the declared monthly volume. The queue shows 60 or more in red as high risk.</p>
+
+        <h2>Counterparty network</h2>
+        <p>Every case opens with a network picture: the case customer in the middle, and everyone they sent money to or received
+          money from in the 90 days up to and including the case date. Senders who only pay in sit on the left, receivers who only
+          get paid sit on the right, so fan-in (many senders, one account) and pass-through (money in from many, out again to one or
+          two) read left to right. Node size is the amount, arrow width is the amount in that direction, a red ring marks a
+          counterparty in a high-risk-tier invented country. Selecting a transaction in the timeline highlights its arrow, and the
+          other way round.</p>
+        <p>It is built in SQL (sql/17_v_case_network.sql) from the raw transactions only: nothing after the case date, nothing from
+          the answer key. To stay readable it shows at most 25 counterparties, the largest by amount; the rest are grouped as
+          &quot;+N others&quot;. The view also looks for other Lysbro Pay customers who dealt with the same counterparties in the same
+          window. In this synthetic data there are none: every counterparty belongs to one customer, so each network is one customer
+          and their counterparties.</p>
 
         <h2>What the AI sees, and what it does not</h2>
         <p>Sees: the customer profile (type, customer since, declared purpose and monthly volume, home country, KYC rating),
@@ -111,7 +124,7 @@ export default function HowItWorks() {
           <li>The fairness check covers name origin only, on 25 to 90 cases per group. It is reported, not tested statistically.</li>
           <li>Thresholds and risk weights are own assumptions, not taken from any regulator or employer, and not tuned on real data.</li>
           <li>No analyst decisions exist. The queue shows suggestions only, and precision and recall come from an answer key, not from analyst outcomes.</li>
-          <li>No network view: shared senders or recipients across customers are not linked.</li>
+          <li>The network view can link customers through shared counterparties, but the generator gave every counterparty to one customer only, so no such links exist here. It shows money flows, not why the money moved, and it cannot see accounts outside Lysbro Pay beyond the counterparty id.</li>
         </ul>
       </article>
       <Footer />

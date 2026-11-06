@@ -1,0 +1,85 @@
+/* Design tokens shared by the three portfolio projects (P1 variance cockpit, P2 startup runway, P3 AML queue).
+   Copy this file unchanged; only --accent, --accent-soft and --on-accent differ per project (see components/kit/README.md).
+   Light is the default; [data-theme="dark"] on <html> switches to dark (set by the theme toggle). */
+
+:root,
+[data-theme="light"] {
+  --bg: #faf9f7;            /* warm off-white page */
+  --surface: #ffffff;       /* cards */
+  --surface-2: #f4f2ee;     /* inset blocks (email header, tracks) */
+  --border: #e7e5e1;        /* hairlines */
+  --border-strong: #d6d3cd;
+  --grid: #efede9;          /* chart gridlines */
+  --text: #1c1b19;
+  --muted: #6b675f;         /* secondary text, 5,4:1 on the page */
+  --neutral: #a39e94;       /* totals in charts, inactive marks */
+
+  --positive: #2e7d57;      /* favourable, 4,8:1 on the page */
+  --negative: #b23a2e;      /* unfavourable and risk only, 5,6:1 */
+  --warning: #9a6a00;
+
+  /* Soft backgrounds for the change pills (text in --positive / --negative stays above 4,5:1 on them). */
+  --positive-soft: #edf6f0; /* green text 4,6:1 */
+  --negative-soft: #f8e6e3; /* red text 4,9:1 */
+
+  /* Project accent. P3 AML queue: deep olive (clear of the semantic green and red, and of P2's ink blue). */
+  --accent: #5e6b2a;        /* 5,5:1 on the page, 5,8:1 on cards, 5,2:1 on surface-2 */
+  --accent-soft: #eef0e2;   /* selected row, active backgrounds; accent text 5,0:1 on it */
+  --on-accent: #ffffff;     /* text on an accent background, 5,8:1 */
+
+  --shadow: 0 1px 2px rgb(28 27 25 / 0.04);
+  --shadow-pop: 0 6px 20px rgb(28 27 25 / 0.10);  /* popovers only */
+}
+
+[data-theme="dark"] {
+  --bg: #141412;            /* warm near-black, not blue-black */
+  --surface: #1c1b19;
+  --surface-2: #232220;
+  --border: #2c2a26;
+  --border-strong: #3a3833;
+  --grid: #262421;
+  --text: #edebe7;
+  --muted: #a39e94;         /* 6,9:1 */
+  --neutral: #6b675f;
+
+  --positive: #5bb98a;      /* 7,7:1 */
+  --negative: #e27064;      /* 5,9:1 */
+  --warning: #d9a640;
+
+  --positive-soft: #1b2c22; /* green text 6,1:1 */
+  --negative-soft: #35201d; /* red text 4,9:1 */
+
+  --accent: #a9b86a;        /* lighter olive for dark, 8,6:1 on the page, 8,0:1 on cards */
+  --accent-soft: #262a1a;   /* accent text 6,8:1 on it */
+  --on-accent: #141412;     /* 8,6:1 */
+
+  --shadow: none;
+  --shadow-pop: 0 6px 20px rgb(0 0 0 / 0.45);
+}
+
+/* Tailwind reads the tokens, so utilities like bg-surface, text-muted, border-border and text-accent exist.
+   "inline" keeps the CSS variable, so the theme switch works without a Tailwind dark: variant. */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-neutral: var(--neutral);
+  --color-positive: var(--positive);
+  --color-negative: var(--negative);
+  --color-positive-soft: var(--positive-soft);
+  --color-negative-soft: var(--negative-soft);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
+
+  --font-serif: var(--font-source-serif), Georgia, serif;
+  --font-sans: var(--font-plex-sans), system-ui, sans-serif;
+
+  --radius-card: 8px;
+  --radius-card-lg: 12px;   /* the big cash chart card */
+  --shadow-card: var(--shadow);
+}

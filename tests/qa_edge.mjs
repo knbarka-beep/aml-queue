@@ -133,18 +133,37 @@ async function main() {
   const body = await js(`document.querySelector('dialog.drill').innerText`);
   check("Drill-down says 'AI suggestion only. An analyst decides.'", body.includes("AI suggestion only. An analyst decides."));
   check("Drill-down has profile, timeline, rules and AI section", ["Customer profile", "Declared vs actual", "Rules hit", "AI draft"].every((t) => body.toUpperCase().includes(t.toUpperCase())));
-  check("Drill-down timeline chart renders", (await js(`document.querySelectorAll('dialog.drill .recharts-symbols').length`)) > 0);
+  check("Drill-down counterparty network renders with nodes reachable by Tab", (await js(`document.querySelectorAll('dialog.drill .network .node[tabindex="0"]').length`)) > 1);
+  check("Drill-down network has the ranked list", await js(`!!document.querySelector('dialog.drill details.cplist table')`));
+    // Linking: a triggering transaction highlights its arrow; a node by keyboard shows its amounts and highlights.
+  await js(`document.querySelector('dialog.drill td .linkbtn').click()`); await sleep(200);
+  check("Clicking a triggering transaction highlights its edge in the network", (await js(`document.querySelectorAll('dialog.drill .edge.hl').length`)) > 0);
+  await js(`document.querySelector('dialog.drill .node[aria-pressed="false"]').id = 'qa-node'; document.getElementById('qa-node').focus()`); await sleep(100);
+  check("A focused network node shows its amounts", (await js(`document.querySelector('dialog.drill .nettip')?.innerText ?? ''`)).includes("Paid in"));
+  await key("Enter", "Enter", 13); await sleep(200);
+  check("Enter on a node selects it and highlights its edges", (await js(`document.getElementById('qa-node').getAttribute('aria-pressed')`)) === "true"
+    && (await js(`document.querySelectorAll('dialog.drill .edge.hl').length`)) > 0);
+    check("Drill-down timeline chart renders", (await js(`document.querySelectorAll('dialog.drill .recharts-symbols').length`)) > 0);
   check("Focus is inside the drill-down", await js(`document.querySelector('dialog.drill').contains(document.activeElement)`));
   await shot("drilldown.png");
   await key("Escape", "Escape", 27);
   await sleep(300);
   check("Esc closes the drill-down", !(await js(`document.querySelector('dialog.drill').open`)));
 
+  // Reduced motion: the drill-down and the network appear without animation.
+  await S("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "reduce" }] });
+  await js(`[...document.querySelectorAll('.rowbtn')].find(b => b.textContent === 'CASE-0158').click()`); await sleep(800);
+  check("Reduced motion: no animation on the drill-down or the network", await js(`getComputedStyle(document.querySelector('dialog.drill')).animationName === 'none'
+    && getComputedStyle(document.querySelector('dialog.drill .netbox svg')).animationName === 'none'`));
+  await key("Escape", "Escape", 27); await sleep(300);
+  await S("Emulation.setEmulatedMedia", { features: [] });
+
   // Dark mode via the toggle
   await js(`document.querySelector('button[aria-label="Switch light or dark theme"]').click()`);
   await sleep(300);
   check("Theme toggle switches to dark", (await js(`document.documentElement.dataset.theme`)) === "dark");
-  check("Dark background applied", (await js(`getComputedStyle(document.body).backgroundColor`)) === "rgb(11, 17, 32)");
+  // Dark page background from web/styles/tokens.css (--bg #141412; was #0b1120 before the P3 redesign).
+  check("Dark background applied", (await js(`getComputedStyle(document.body).backgroundColor`)) === "rgb(20, 20, 18)");
   await shot("desktop-dark.png");
   await js(`document.querySelector('#tab-rules').click()`);
   await sleep(600);
@@ -182,6 +201,9 @@ async function main() {
     await size(1200, 630);
     await go("/");
     await theme("light"); await sleep(300);
+    // The CASE-0158 drill-down with its counterparty network: the view that shows the project best.
+    await js(`[...document.querySelectorAll('.rowbtn')].find(b => b.textContent === 'CASE-0158').click()`);
+    await sleep(1200);
     const { data } = await S("Page.captureScreenshot", { format: "png" });
     writeFileSync("web/public/og.png", Buffer.from(data, "base64"));
   }

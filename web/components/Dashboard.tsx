@@ -10,30 +10,32 @@ import RulePerformance from "./RulePerformance";
 import CaseDrawer from "./CaseDrawer";
 import Footer from "./Footer";
 
-/** The one main view: header, four KPIs, then the queue (or the rule performance tab). */
+/** The one main view: header, four key figures, then the queue (or the rule performance tab). */
 export default function Dashboard() {
   const [month, setMonth] = useState(meta.default_month);
   const [tab, setTab] = useState<"queue" | "rules">("queue");
   const [openId, setOpenId] = useState<string | null>(null);
+  const [lastId, setLastId] = useState<string | null>(null);
   const kpi = monthlyKpis.find((k) => k.month === month)!;
   const open = cases.find((c) => c.case_id === openId) ?? null;
+  const openCase = (id: string) => { setOpenId(id); setLastId(id); };
 
   return (
     <main className="page">
-      <header className="header">
-        <div className="stack" style={{ gap: 2 }}>
-          <h1>{meta.company}: AML alert queue</h1>
-          <p className="muted small">Rules flag transfers, AI drafts a case note, an analyst decides.</p>
-        </div>
-        <div className="controls">
-          <label className="sr-only" htmlFor="month">Month</label>
-          <select id="month" value={month} onChange={(e) => setMonth(e.target.value)} aria-label="Month">
-            {meta.months.map((m) => <option key={m} value={m}>{monthLabel(m)}</option>)}
-          </select>
-          <ThemeToggle />
+      <header className="site-header">
+        <div className="bar">
+          <h1>{meta.company} <span className="what">AML alert queue</span></h1>
+          <div className="controls">
+            <label className="sr-only" htmlFor="month">Month</label>
+            <select id="month" value={month} onChange={(e) => setMonth(e.target.value)} aria-label="Month">
+              {meta.months.map((m) => <option key={m} value={m}>{monthLabel(m)}</option>)}
+            </select>
+            <ThemeToggle />
+          </div>
         </div>
       </header>
-      <p className="notice">{meta.notice}</p>
+      <p className="notice"><strong>All data is fictional.</strong> {meta.notice.replace("All data is fictional. ", "")} Rules flag transfers,
+        AI drafts a case note, an analyst decides.</p>
 
       <KpiRow kpi={kpi} />
 
@@ -46,7 +48,7 @@ export default function Dashboard() {
         </button>
       </div>
       {tab === "queue"
-        ? <section id="panel-queue" role="tabpanel" aria-labelledby="tab-queue"><Queue month={month} onOpen={setOpenId} /></section>
+        ? <section id="panel-queue" role="tabpanel" aria-labelledby="tab-queue"><Queue month={month} onOpen={openCase} selected={lastId} /></section>
         : <section id="panel-rules" role="tabpanel" aria-labelledby="tab-rules"><RulePerformance /></section>}
 
       <Footer />
