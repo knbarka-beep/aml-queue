@@ -133,6 +133,8 @@ async function main() {
   const body = await js(`document.querySelector('dialog.drill').innerText`);
   check("Drill-down says 'AI suggestion only. An analyst decides.'", body.includes("AI suggestion only. An analyst decides."));
   check("Drill-down has profile, timeline, rules and AI section", ["Customer profile", "Declared vs actual", "Rules hit", "AI draft"].every((t) => body.toUpperCase().includes(t.toUpperCase())));
+  // The network loads lazily when a case opens: wait for it (up to 3 s) instead of a fixed pause.
+  for (let i = 0; i < 30 && !(await js(`document.querySelectorAll('dialog.drill .network .node').length > 1`)); i++) await sleep(100);
   check("Drill-down counterparty network renders with nodes reachable by Tab", (await js(`document.querySelectorAll('dialog.drill .network .node[tabindex="0"]').length`)) > 1);
   check("Drill-down network has the ranked list", await js(`!!document.querySelector('dialog.drill details.cplist table')`));
     // Linking: a triggering transaction highlights its arrow; a node by keyboard shows its amounts and highlights.
