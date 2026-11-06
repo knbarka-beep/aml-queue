@@ -22,13 +22,21 @@ Knut is an economics master's student who builds finance tools with AI. He is no
 - **API key** is read from `PORTFOLIO_ANTHROPIC_KEY`. Never print, write or commit it. Spend cap for this project: USD 2,00.
 - **Git:** commit with the GitHub noreply address only. Do not push, add a remote or deploy without Knut asking.
 
+## Design
+
+- One family with P1 and P2: tokens in `web/styles/tokens.css`, base styles in `web/styles/kit.css`, the shared (i) popover in `web/components/kit/` (copied from `../startup-runway`, see `web/components/kit/README.md`). Page styles in `web/app/globals.css` use the tokens, never raw hex values.
+- P3 accent: deep olive, `#5E6B2A` light and `#A9B86A` dark. Light theme by default (or the system setting), dark behind the toggle. Source Serif 4 for headings and big numbers, IBM Plex Sans for text, tabular figures.
+- Bold only through structure, scale and real data (the counterparty network, the precision bars, the 2x2 matrix). No bright UI blue, indigo, violet or purple, no decorative gradients, glass, glow, neon, emoji, sparkle icons or marketing phrases. Red only for high risk, "Escalate" and high-risk-tier countries.
+- Motion 150 to 250 ms on hover, focus, tabs and opening a case; none on numbers; respect prefers-reduced-motion. Explanations in (i) popovers; at most one caption per card.
+- Keep the selectors that `tests/qa_edge.mjs` and `tests/redesign_shots.mjs` use (listed in `docs/decisions.md`, "Design P3 bold").
+
 ## Ask first
 
 Before anything that costs money beyond the cap, needs a login, publishes anything, deletes data, or changes what is measured.
 
 ## Pipeline
 
-See README.md ("How to run"). `scripts/run_all.py` runs everything except the AI calls.
+See README.md ("How to run"). `scripts/run_all.py` runs everything except the AI calls. UI checks: `node tests/qa_edge.mjs` after `npm run build` in `web/`.
 
 ## Where the details are
 

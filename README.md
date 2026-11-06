@@ -74,12 +74,13 @@ If an analyst reviewed only the cases the AI suggests escalating: 100 of 183 cas
 - The fairness check covers name origin only, on 25 to 90 cases per group. It is reported, not tested statistically. The planted customers match everyone else's name-origin mix within 1,6 points.
 - Thresholds and risk weights are own assumptions. 183 cases is fewer than planned; the thresholds were not loosened to reach more.
 - No analyst decisions exist. The queue shows suggestions only, and precision and recall come from an answer key. No time saving is claimed.
+- The counterparty network shows one customer and their counterparties (90 days up to the case date, at most 25 nodes). Every counterparty in the synthetic data belongs to one customer, so no links between customers appear.
 
 ## Next version
 
 - A threshold slider per rule for rule tuning, tested on one period and checked on another.
 - An analyst feedback loop: decisions in the queue, and precision measured from them.
-- A network view of counterparties, to link accounts that share senders or recipients.
+- Linking customers through shared counterparties in data that has them (the network view supports it; this synthetic data has none).
 
 ## How to run
 

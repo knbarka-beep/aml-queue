@@ -72,9 +72,23 @@ Why a weighted sum: it is transparent, each part can be shown in the drill-down 
 
 ## 6. The charts
 
-- **Drill-down timeline** (`web/components/Timeline.tsx`): one dot per transaction from 90 days before the first alert to the case date; money in above zero, out below; triggering transactions in blue. It answers "is this new for this customer?" at a glance.
-- **Cases per rule** (`web/components/RulePerformance.tsx`): horizontal stacked bars, truly suspicious (blue) and false positive (grey) per rule. It tells the false-positive story: R4 and R5 make most of the noise.
+- **Counterparty network** (`web/components/Network.tsx`, data from `sql/17_v_case_network.sql`): the first thing in every drill-down. See section 6a.
+- **Drill-down timeline** (`web/components/Timeline.tsx`): one dot per transaction from 90 days before the first alert to the case date; money in above zero, out below; triggering transactions filled in the olive accent, others hollow. It answers "is this new for this customer?" at a glance. Clicking a dot highlights that counterparty in the network.
+- **Precision per rule** (`web/components/RulePerformance.tsx`): one bar per rule, as long as its number of cases, split into truly suspicious (olive) and false positive (grey), with the precision beside it. It tells the false-positive story: R4 and R5 make most of the noise.
+- **Trade-off bars**: 100 of 183 cases reviewed, 30 of 34 truly suspicious cases found, as two bars under the 2x2 table.
 - **2x2 table**: AI suggestion vs truth. A table, not a chart, because four numbers are read more precisely as numbers.
+
+## 6a. The counterparty network (`sql/17_v_case_network.sql`)
+
+**What it shows.** The case customer in the middle (olive), and everyone they sent money to or received money from. Senders who only pay in are pulled to the left, receivers who only get paid to the right, and counterparties that do both sit in between. So fan-in (many senders into one account) and pass-through (money in from many, out again to one or two) read from left to right. Node size is the total amount, arrow width the amount in that direction, a red ring a counterparty in a high-risk-tier invented country. Hover, tap or Tab to a node for the amounts in and out and the number of transfers; a ranked list below the picture holds the same figures for keyboard and phone users.
+
+**Window.** The 90 days up to and including the case date (the date of the last alert in the case). Nothing after the case date. `tests/test_case_network.py` checks that every edge lies in the window, that the edges add up to the customer's own transfers in it, the cap, and that the view and its export never refer to the answer key.
+
+**The cap.** At most 25 counterparty nodes per case, the largest by total amount; the rest are grouped into one "+N others" node. 10 of the 183 cases have more than 25 counterparties. Larger graphs turn into a hairball that no one can read.
+
+**Links to other customers.** The view also looks for other Lysbro Pay customers who dealt with the same counterparties in the same window. In this synthetic data there are none: the generator gave every counterparty to exactly one customer. The SQL and the drawing handle such links, but the data has nothing to show, and the caption says so.
+
+**Layout.** d3-force (a small library, about 15 KB), run to the end before the first paint, with a fixed random seed: the same case always gets the same picture and nothing floats. The picture appears with one short fade (250 ms), or directly when the visitor prefers reduced motion.
 
 ## 7. The AI part
 
@@ -84,7 +98,7 @@ Why a weighted sum: it is transparent, each part can be shown in the drill-down 
 - **Checks** (`check_summaries.py`): numbers within the rounding shown, no date after the case date, fields, length, banned words. Result: 134 of 183 first attempt, 178 of 183 final. The 5 failures are 101-103 words.
 - **Cost**: worst case estimated at USD 0,78 before calling; actual USD 0,15 (complete run), about USD 0,16 in total.
 
-## 8. Twelve interview questions, with honest answers
+## 8. Thirteen interview questions, with honest answers
 
 **1. Why is precision so low, and is that bad?**
 18,6 % means about four in five cases were not suspicious. In transaction monitoring that is normal: rules are set to catch most real cases, so they also catch ordinary behaviour that looks similar (a car purchase looks like a volume spike). Low precision is a cost (analyst time), not a failure, as long as recall is high. The useful question is where the false positives come from: here R4 (70 of 97 cases false) and R5 (58 of 64). Those are the rules to tune first.
@@ -121,6 +135,9 @@ USD 0,15 for 183 drafts with a small model, about USD 0,0008 per case. At 10.000
 
 **12. What would you build next?**
 A threshold slider showing how precision and recall move, analyst decisions in the queue with a feedback loop, a network view to find shared senders across mule accounts, and an analyst review of a sample of AI drafts to measure quality beyond agreement with the answer key.
+
+**13. Why a network view, and what can it not show?**
+Mule activity, fan-in and pass-through are patterns between accounts, not inside one account, and a table of 25 transfers hides that shape. The network shows it in one look: many arrows in on the left, one or two out on the right. What it cannot show: why the money moved (a family collecting for a wedding looks like fan-in), anything outside the 90 days or after the case date, accounts at other banks beyond a counterparty id, and here, links between customers, because the synthetic data has no shared counterparties. It describes behaviour; the analyst decides what it means.
 
 ## 9. Five things to look at first
 

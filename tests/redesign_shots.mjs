@@ -75,7 +75,7 @@ async function main() {
         .row{display:flex;gap:16px;padding:16px;align-items:flex-start}.col{flex:1;min-width:0}.col p{margin:0 0 8px}
         img{width:100%;border:1px solid #d6d3cd;background:#fff;display:block}.none{padding:40px;border:1px dashed #a39e94}</style>
         <div class="row"><div class="col"><p>Before</p>${img(a)}</div><div class="col"><p>After</p>${img(b)}</div></div>`;
-      await size(1600, 900);
+      await size(1600, 100);
       await S("Page.setDocumentContent", { frameId: (await S("Page.getFrameTree")).frameTree.frame.id, html });
       await sleep(500);
       const { data } = await S("Page.captureScreenshot", { format: "png", captureBeyondViewport: true,
@@ -96,6 +96,13 @@ async function main() {
   await open158();
   await shot("drill-case-0158");
   if (MODE === "after") await shot("network-desktop", { selector: ".network" });
+  if (MODE === "after") {
+    // Dark theme and a case with high-risk-tier counterparties (red rings).
+    await go("/"); await theme("dark"); await sleep(300);
+    await js(`[...document.querySelectorAll('.rowbtn')].find(b => b.textContent.trim() === 'CASE-0173').click()`); await sleep(1200);
+    await shot("network-dark-case-0173", { selector: ".network" });
+    await theme("light");
+  }
   await go("/");
   await theme("light");
   await js(`document.querySelector('#tab-rules').click()`); await sleep(800);

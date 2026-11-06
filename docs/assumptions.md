@@ -51,3 +51,10 @@ The weights reflect a judgement that moving money through an account quickly (R2
 - Model: `claude-haiku-5-5` (cheap, good enough for short structured summaries), effort `low`.
 - Spend cap: USD 2,00 for this project; the run aborts if the worst-case estimate (3 attempts for every case) is above it.
 - Price used for the estimate and the spend log: USD 0,10 per million input tokens, USD 0,50 per million output tokens (Anthropic list price for Claude Haiku 5.5, prompts under 100.000 tokens).
+
+## Counterparty network (display only)
+
+These shape a picture, not a rule or a score; changing them changes no case, alert or metric.
+
+- Window: the 90 days up to and including the case date, the same length as the baseline window used elsewhere. Own assumption.
+- Cap: 25 counterparty nodes per case, the largest by total amount; the rest are grouped as "+N others". Own assumption, chosen for readability (10 of 183 cases exceed it).

@@ -198,13 +198,17 @@ async function main() {
 
   // Open Graph image, 1200 x 630 (local run only)
   if (!LIVE) {
-    await size(1200, 630);
+    // Laid out at 1600 x 840 and scaled to 1200 x 630, so the page header with "(fictional)" shows beside the drill-down.
+    await S("Emulation.setDeviceMetricsOverride", { width: 1600, height: 840, deviceScaleFactor: 0.75, mobile: false });
+    await S("Emulation.setScrollbarsHidden", { hidden: true });
     await go("/");
     await theme("light"); await sleep(300);
     // The CASE-0158 drill-down with its counterparty network: the view that shows the project best.
     await js(`[...document.querySelectorAll('.rowbtn')].find(b => b.textContent === 'CASE-0158').click()`);
     await sleep(1200);
+    await js(`document.activeElement.blur()`); await sleep(200);
     const { data } = await S("Page.captureScreenshot", { format: "png" });
+    await S("Emulation.setScrollbarsHidden", { hidden: false });
     writeFileSync("web/public/og.png", Buffer.from(data, "base64"));
   }
 

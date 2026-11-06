@@ -82,7 +82,7 @@ function build(caseId: string) {
   box.w = Math.max(...xs, 320) + pad - box.x;
   box.h = Math.max(Math.max(...ys) + pad - box.y, 260);
   const ranked = all.filter((n) => n.kind === "cp" || n.kind === "others").sort((a, b) => total(b) - total(a));
-  const labelled = new Set(ranked.filter((n) => n.kind === "cp").slice(0, 5).map((n) => n.id));
+  const labelled = new Set(ranked.filter((n) => n.kind === "cp").slice(0, 5).filter((n) => n.r >= 10).map((n) => n.id));
   return { nodes: all, edges, box, ranked, labelled, total };
 }
 

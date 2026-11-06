@@ -169,8 +169,8 @@ tr.picked td { background: var(--accent-soft); }
 @keyframes net-in { from { opacity: 0; transform: scale(0.97); } }
 .side-label { position: absolute; top: 10px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); pointer-events: none; }
 .side-label.left { left: 14px; } .side-label.right { right: 14px; }
-.edge { stroke: var(--muted); stroke-opacity: 0.55; fill: none; transition: stroke-opacity 150ms ease, stroke 150ms ease; cursor: pointer; }
-.edge.dim { stroke-opacity: 0.15; }
+.edge { stroke: var(--muted); stroke-opacity: 0.8; fill: none; transition: stroke-opacity 150ms ease, stroke 150ms ease; cursor: pointer; }
+.edge.dim { stroke-opacity: 0.2; }
 .edge.hl { stroke: var(--accent); stroke-opacity: 1; }
 .edge-hit { stroke: transparent; fill: none; cursor: pointer; }
 .node { cursor: pointer; outline: none; }
@@ -182,7 +182,9 @@ tr.picked td { background: var(--accent-soft); }
 .node circle.focus { fill: none; stroke: var(--accent); stroke-width: 2; opacity: 0; transition: opacity 150ms ease; }
 .node:hover circle.focus, .node:focus-visible circle.focus, .node.hl circle.focus { opacity: 1; }
 .node.dim { opacity: 0.35; }
-.node text { font-size: 11px; fill: var(--muted); pointer-events: none; font-variant-numeric: tabular-nums; }
+/* Labels get an outline in the box colour, so an arrow passing behind never cuts through the figures. */
+.node text { font-size: 11px; fill: var(--muted); pointer-events: none; font-variant-numeric: tabular-nums;
+  paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
 .node.case text { fill: var(--text); font-weight: 600; font-size: 12px; }
 @media (max-width: 599px) { .node text.amt { display: none; } .side-label { display: none; } }
 .nettip { position: absolute; z-index: 3; pointer-events: none; transform: translate(-50%, calc(-100% - 12px)); min-width: 170px;
