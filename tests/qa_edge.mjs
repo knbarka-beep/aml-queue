@@ -59,9 +59,16 @@ async function main() {
   ws.addEventListener("message", (ev) => {
     const m = JSON.parse(ev.data);
     if (m.id && pending.has(m.id)) { const p = pending.get(m.id); pending.delete(m.id); m.error ? p.reject(new Error(m.error.message)) : p.resolve(m.result); }
-    if (m.method === "Runtime.exceptionThrown") errors.push(m.params.exceptionDetails.exception?.description ?? m.params.exceptionDetails.text);
+    // Only errors from the site's own scripts and files count (as in P2's live_check.mjs): Edge injects a script of
+    // its own that can throw (seen once on the live site: "Identifier 'AssistantLoadState' has already been declared").
+    if (m.method === "Runtime.exceptionThrown") {
+      const d = m.params.exceptionDetails;
+      const where = d.url || d.stackTrace?.callFrames?.[0]?.url || "";
+      if (where.startsWith(BASE)) errors.push(d.exception?.description ?? d.text);
+    }
     if (m.method === "Runtime.consoleAPICalled" && m.params.type === "error") errors.push(m.params.args.map((a) => a.value ?? a.description).join(" "));
-    if (m.method === "Log.entryAdded" && m.params.entry.level === "error") errors.push(m.params.entry.text + " " + (m.params.entry.url ?? ""));
+    if (m.method === "Log.entryAdded" && m.params.entry.level === "error" && (m.params.entry.url ?? "").startsWith(BASE))
+      errors.push(m.params.entry.text + " " + m.params.entry.url);
   });
   const { targetId } = await send("Target.createTarget", { url: "about:blank" });
   const { sessionId: s } = await send("Target.attachToTarget", { targetId, flatten: true });
